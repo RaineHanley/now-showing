@@ -1,0 +1,33 @@
+name: Update nowshowing.json
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour
+  workflow_dispatch:       # allows manual run button
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm init -y && npm i @notionhq/client
+
+      - name: Build nowshowing.json
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: node scripts/build-nowshowing.js
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "now-showing-bot"
+          git config user.email "now-showing-bot@users.noreply.github.com"
+          git add nowshowing.json
+          git diff --staged --quiet || (git commit -m "Update nowshowing.json" && git push)
