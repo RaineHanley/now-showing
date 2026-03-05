@@ -2,7 +2,11 @@ const fs = require("fs");
 const { Client } = require("@notionhq/client");
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
-const databaseId = process.env.NOTION_DATABASE_ID;
+const rawDb = process.env.NOTION_DATABASE_ID || "";
+const databaseId = rawDb
+  .replace(/^https?:\/\/www\.notion\.so\//, "")
+  .split("?")[0]
+  .replace(/[^a-f0-9]/gi, ""); // strips dashes etc
 
 (async () => {
   const res = await notion.databases.query({
