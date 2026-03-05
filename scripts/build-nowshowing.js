@@ -47,7 +47,7 @@ function getDate(prop) {
       title: getText(p["Title"]),
       subtitle: getText(p["Subtitle"]),
       category: getSelect(p["Category"]),
-      expiry: getDate(p["expiry"])
+      expiry: getDate(p["Expiry"])
     };
 
   }).filter(v => v.title);
