@@ -21,8 +21,8 @@ jobs:
           node-version: "20"
 
       - name: Install deps
-        run: npm install @notionhq/client
-
+        run: npm install @notionhq/client@2.2.15
+      
       - name: Build JSON
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
