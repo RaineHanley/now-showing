@@ -21,7 +21,7 @@ jobs:
           node-version: "20"
 
       - run: npm init -y
-      - run: npm install @notionhq/client@2
+      - run: npm install @notionhq/client@2.2.15
 
       - name: Build JSON
         env:
