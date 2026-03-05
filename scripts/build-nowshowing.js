@@ -4,6 +4,13 @@ const { Client } = require("@notionhq/client");
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
+(async () => {
+  const res = await notion.databases.query({
+    database_id: databaseId,
+  });
+
+  // ... keep the rest of your mapping code below ...
+})();
 function getText(prop) {
   if (!prop) return "";
   if (prop.type === "title") return prop.title.map(t => t.plain_text).join("");
