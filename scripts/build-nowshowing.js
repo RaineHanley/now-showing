@@ -29,10 +29,10 @@ function getDate(prop) {
   if (!process.env.NOTION_TOKEN) throw new Error("Missing NOTION_TOKEN");
   if (!databaseId) throw new Error("Missing NOTION_DATABASE_ID");
 
-  const res = await notion.databases.query({
-    database_id: databaseId,
-    page_size: 100
-  });
+const res = await notion.databases.query({
+  database_id: databaseId,
+  page_size: 100
+});
 
   const videos = res.results.map(page => {
     const p = page.properties || {};
